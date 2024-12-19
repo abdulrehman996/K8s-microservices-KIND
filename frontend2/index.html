@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Data</title>
+</head>
+<body>
+    <h1>Display Data</h1>
+    <div id="data-list"></div>
+    <script>
+        async function fetchData() {
+            const response = await fetch('http://localhost:8000/api/display/');
+            const data = await response.json();
+            const list = document.getElementById('data-list');
+            list.innerHTML = data.map(item => `<p>${item.name}: ${item.value}</p>`).join('');
+        }
+        fetchData();
+    </script>
+</body>
+</html>
