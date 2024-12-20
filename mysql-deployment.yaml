@@ -18,13 +18,25 @@ spec:
       - name: mysql
         image: mysql
         env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: rootpassword
-        - name: MYSQL_DATABASE
-          value: microservicesdb
-        - name: MYSQL_USER
-          value: appuser
-        - name: MYSQL_PASSWORD
-          value: apppassword
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: MYSQL_ROOT_PASSWORD
+          - name: MYSQL_USER
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: MYSQL_USER
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: MYSQL_PASSWORD
+          - name: MYSQL_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: MYSQL_DATABASE
         ports:
         - containerPort: 3306
